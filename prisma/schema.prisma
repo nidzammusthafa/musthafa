@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminAccount {
+  username String @id @db.VarChar(100)
+  name     String @db.VarChar(100)
+  email    String @unique @db.VarChar(255)
+  phone    String @unique @db.VarChar(20)
+
+  Transaction Transaction[]
+
+  @@map("admin_accounts")
+}
+
+model Member {
+  username String @id @db.VarChar(100)
+  name     String
+  email    String @unique @db.VarChar(255)
+  phone    String @unique @db.VarChar(20)
+
+  Transaction Transaction[]
+
+  @@map("members")
+}
+
+model Transaction {
+  id            String  @id @default(uuid())
+  amount        Int /* total yang dibayarkan */
+  paymentMethod String? /* metode pembayaran */
+  success       Boolean @default(false)
+  payer         String /* data subject yang membayar */
+  payee         String /* data subject yang dibayar */
+  description   String?
+
+  admin   AdminAccount @relation(fields: [adminId], references: [username])
+  adminId String
+
+  member         Member? @relation(fields: [memberUsername], references: [username])
+  memberUsername String? @db.VarChar(100)
+
+  @@map("transactions")
+}
