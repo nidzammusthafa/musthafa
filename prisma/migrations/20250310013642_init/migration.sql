@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "admin_accounts" (
     "username" VARCHAR(100) NOT NULL,
+    "password" VARCHAR(100) NOT NULL,
     "name" VARCHAR(100) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
     "phone" VARCHAR(20) NOT NULL,
@@ -12,6 +13,7 @@ CREATE TABLE "admin_accounts" (
 CREATE TABLE "members" (
     "username" VARCHAR(100) NOT NULL,
     "name" TEXT NOT NULL,
+    "password" VARCHAR(100) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
     "phone" VARCHAR(20) NOT NULL,
 

@@ -9,6 +9,7 @@ datasource db {
 
 model AdminAccount {
   username String @id @db.VarChar(100)
+  password String @db.VarChar(100)
   name     String @db.VarChar(100)
   email    String @unique @db.VarChar(255)
   phone    String @unique @db.VarChar(20)
@@ -21,6 +22,7 @@ model AdminAccount {
 model Member {
   username String @id @db.VarChar(100)
   name     String
+  password String @db.VarChar(100)
   email    String @unique @db.VarChar(255)
   phone    String @unique @db.VarChar(20)
 

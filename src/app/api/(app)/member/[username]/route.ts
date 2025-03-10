@@ -2,6 +2,8 @@ import { prismaClient } from "@/lib/application/database";
 import { UserValidation } from "@/lib/validation/user-validation";
 import { Validation } from "@/lib/validation/validation";
 import { NextRequest } from "next/server";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export async function GET(
   req: NextRequest,
@@ -9,6 +11,14 @@ export async function GET(
 ) {
   try {
     const { username } = await params;
+    const cookie = await cookies();
+    const token = cookie.get("auth_token")?.value;
+
+    if (!token) return new Response("No token provided", { status: 401 });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+
+    if (!decoded) return new Response("No token provided", { status: 401 });
 
     const member = await prismaClient.member.findFirst({
       where: {

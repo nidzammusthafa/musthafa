@@ -4,6 +4,7 @@ export class UserValidation {
   static readonly ADMIN: ZodType = z.object({
     name: z.string().min(1).max(100),
     username: z.string().min(1).max(100),
+    password: z.string().min(1).max(20),
     email: z.string().min(1).max(255),
     phone: z.string().min(1).max(20),
   });
@@ -11,6 +12,7 @@ export class UserValidation {
   static readonly UPDATEADMIN: ZodType = z.object({
     name: z.string().optional(),
     username: z.string().optional(),
+    password: z.string().optional(),
     email: z.string().optional(),
     phone: z.string().optional(),
   });
@@ -18,14 +20,22 @@ export class UserValidation {
   static readonly MEMBER: ZodType = z.object({
     name: z.string().min(1).max(100),
     username: z.string().min(1).max(100),
+    password: z.string().min(1).max(100),
     email: z.string().email().min(1).max(255),
     phone: z.string().min(1).max(20),
   });
 
   static readonly UPDATEMEMBER: ZodType = z.object({
     name: z.string().optional(),
+    password: z.string().optional(),
     username: z.string().optional(),
     email: z.string().optional(),
     phone: z.string().optional(),
+  });
+
+  static readonly LOGIN: ZodType = z.object({
+    username: z.string().optional(),
+    email: z.string().optional(),
+    password: z.string().min(1).max(100),
   });
 }
